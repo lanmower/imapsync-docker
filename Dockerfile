@@ -1,4 +1,5 @@
 #Download base image ubuntu 18.04
+# Written by lanmower
 FROM ubuntu:18.04
 
 RUN apt-get update
