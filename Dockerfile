@@ -15,17 +15,7 @@ RUN apt-get install git rcs make makepasswd cpanminus libauthen-ntlm-perl \
      libmodule-scandeps-perl libnet-ssleay-perl libpar-packer-perl \
      libreadonly-perl libsys-meminfo-perl libterm-readkey-perl \
      libtest-fatal-perl libtest-mock-guard-perl libtest-pod-perl \
-     libtest-requires-perl libtest-simple-perl libcrypt-openssl-rsa-perl libcrypt-openssl-random-perl perl-openssl-defaults -y -q
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get install libio-tee-perl -y -q
-RUN apt-get install libunicode-string-perl -y -q
-RUN apt-get install libssl-dev -y -q
-
-RUN cpanm Mail::IMAPClient JSON::WebToken Test::MockObject --force
-
-RUN cpanm Unicode::String Data::Uniqid --force 2>/dev/null || exit 0
-
-RUN cpanm File::Tail CGI Crypt::OpenSSL::RSA JSON JSON::WebToken JSON::WebToken::Crypt::RSA LWP::UserAgent Regexp::Common Test::MockObject Test::Deep --force
+     libtest-requires-perl libtest-simple-perl libcrypt-openssl-rsa-perl libcrypt-openssl-random-perl perl-openssl-defaults libjson-perl libjson-xs-perl libfile-tail-perl libcgi-pm-perl libjson-perl libjson-webtoken-perl liblwp-useragent-determined-perl libregexp-common-perl libtest-mockobject-perl libtest-deep-perl libunicode-string-perl libdata-uniqid-perl  libio-tee-perl libssl-dev libmail-imapclient-perl libjson-webtoken-perl  -y -q
 
 RUN git clone https://github.com/imapsync/imapsync.git
 
@@ -33,5 +23,5 @@ RUN cd imapsync && make install
 
 RUN cd imapsync && echo ./imapsync --host1 imap.gmail.com --user1 $1 --password1 $2 --prefix2 '['$1']' --host2 imap.gmail.com --user2 $3 --password2 $4 --syncinternaldates --ssl1 -ssl2 --noauthmd5 --split1 100 --split2 100 --port1 993 --port2 993 --allowsizemismatch > usertransfer
 
-CMD cd imapsync && ./usertransfer $from $frompass $to $topass
+CMD cd imapsync && bash ./usertransfer $from $frompass $to $topass
 
