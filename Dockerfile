@@ -20,5 +20,6 @@ RUN apt-get install git rcs make makepasswd cpanminus libauthen-ntlm-perl \
 RUN git clone https://github.com/imapsync/imapsync.git
 
 RUN cd imapsync && make install
-
+RUN echo ____STARTING____
+RUN echo $from $frompass $to $topass
 CMD cd imapsync && ./imapsync --host1 imap.gmail.com --user1 $from --password1 $frompass --prefix2 '['$from']' --host2 imap.gmail.com --user2 $to --password2 $topass --syncinternaldates --ssl1 -ssl2 --noauthmd5 --split1 100 --split2 100 --port1 993 --port2 993 --allowsizemismatch
